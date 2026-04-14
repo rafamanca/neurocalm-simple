@@ -46,23 +46,5 @@ async function send() {
   const userText = input.value;
   if (!userText) return;
 
-  chat.innerHTML += "<div><b>Jij:</b> " + userText + "</div>";
-  input.value = "";
-
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message: userText })
-    });
-
-    const data = await res.json();
-
-    chat.innerHTML += "<div><b>NeuroCalm:</b> " + data.reply + "</div>";
-  } catch (err) {
-    chat.innerHTML += "<div>❌ Server error</div>";
-  }
-}
-</script>
+chat.innerHTML += `<div style="margin:10px 0;"><b>Jij:</b> ${userText}</div>`;
+chat.innerHTML += `<div style="margin:10px 0; color: lightgreen;"><b>NeuroCalm:</b> ${data.reply}</div>`;
