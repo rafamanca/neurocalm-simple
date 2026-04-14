@@ -49,17 +49,20 @@ async function send() {
   chat.innerHTML += "<div><b>Jij:</b> " + userText + "</div>";
   input.value = "";
 
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message: userText })
-  });
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: userText })
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  chat.innerHTML += "<div><b>NeuroCalm:</b> " + data.reply + "</div>";
-  chat.scrollTop = chat.scrollHeight;
+    chat.innerHTML += "<div><b>NeuroCalm:</b> " + data.reply + "</div>";
+  } catch (err) {
+    chat.innerHTML += "<div>❌ Server error</div>";
+  }
 }
 </script>
