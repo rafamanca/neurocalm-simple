@@ -39,7 +39,7 @@
 <button onclick="send()">Send</button>
 
 <script>
-function send() {
+async function send() {
   const input = document.getElementById("input");
   const chat = document.getElementById("chat");
 
@@ -49,9 +49,17 @@ function send() {
   chat.innerHTML += "<div><b>Jij:</b> " + userText + "</div>";
   input.value = "";
 
-  const reply = "Ik ben hier voor je 🌿 Vertel me meer.";
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: userText })
+  });
 
-  chat.innerHTML += "<div><b>NeuroCalm:</b> " + reply + "</div>";
+  const data = await res.json();
+
+  chat.innerHTML += "<div><b>NeuroCalm:</b> " + data.reply + "</div>";
   chat.scrollTop = chat.scrollHeight;
 }
 </script>
