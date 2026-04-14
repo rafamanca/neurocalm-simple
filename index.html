@@ -39,7 +39,7 @@
 <button onclick="send()">Send</button>
 
 <script>
-async function send() {
+function send() {
   const input = document.getElementById("input");
   const chat = document.getElementById("chat");
 
@@ -49,32 +49,9 @@ async function send() {
   chat.innerHTML += "<div><b>Jij:</b> " + userText + "</div>";
   input.value = "";
 
-  try {
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer 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
+  const reply = "Ik ben hier voor je 🌿 Vertel me meer.";
 
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: "You are NeuroCalm, a calm mental health assistant." },
-          { role: "user", content: userText }
-        ]
-      })
-    });
-
-    const data = await res.json();
-
-    const reply = data.choices?.[0]?.message?.content || "Geen antwoord";
-
-    chat.innerHTML += "<div><b>NeuroCalm:</b> " + reply + "</div>";
-    chat.scrollTop = chat.scrollHeight;
-
-  } catch (err) {
-    chat.innerHTML += "<div><b>NeuroCalm:</b> Fout met AI ❌</div>";
-  }
+  chat.innerHTML += "<div><b>NeuroCalm:</b> " + reply + "</div>";
+  chat.scrollTop = chat.scrollHeight;
 }
 </script>
