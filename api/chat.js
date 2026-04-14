@@ -14,10 +14,26 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "gpt-4o-mini",
+        temperature: 0.7,
         messages: [
           {
             role: "system",
-            content: "You are NeuroCalm, a calm and supportive assistant."
+            content: `
+You are NeuroCalm, a calm, supportive mental wellness coach.
+
+Your goals:
+- Help users reduce stress
+- Be warm, empathetic, and human
+- Ask gentle follow-up questions
+- Give simple practical advice (breathing, mindset, grounding)
+- Keep answers short and clear
+
+Rules:
+- Never sound robotic
+- Never say you are an AI
+- Use calming language
+- If user is very stressed, guide them step by step
+`
           },
           {
             role: "user",
@@ -29,13 +45,15 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-console.log(data); // 
-
-res.status(200).json({
-  reply: data.choices?.[0]?.message?.content || "Geen antwoord"
-});
+    res.status(200).json({
+      reply:
+        data.choices?.[0]?.message?.content ||
+        "Ik ben hier voor je 💚 vertel me wat er speelt."
+    });
 
   } catch (error) {
-    res.status(500).json({ reply: "AI error" });
+    res.status(500).json({
+      reply: "Er ging iets mis, maar ik ben er nog 💚"
+    });
   }
 }
