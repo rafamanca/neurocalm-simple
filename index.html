@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NeuroCalm 🌿</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    #chat {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #333;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 10px;
+      width: 70%;
+    }
+    button {
+      padding: 10px;
+      background: #22c55e;
+      border: none;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h1>NeuroCalm 🌿</h1>
+
+<div id="chat"></div>
+
+<input id="input" placeholder="Type hoe je je voelt..." />
+<button onclick="send()">Send</button>
+
+<script>
+async function send() {
+  const input = document.getElementById("input");
+  const chat = document.getElementById("chat");
+
+  const userText = input.value;
+  if (!userText) return;
+
+  chat.innerHTML += "<div><b>Jij:</b> " + userText + "</div>";
+
+  input.value = "";
+
+  // 🔥 SIMPELE AI (zonder backend)
+  const reply = "Ik begrijp je. Neem even rustig adem 🌿";
+
+  chat.innerHTML += "<div><b>NeuroCalm:</b> " + reply + "</div>";
+
+  chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
